@@ -33,12 +33,21 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 
+/**
+ * Configuration class for JWT Security.
+ */
 @Configuration
 public class JwtSecurityConfig {
 
+    /**
+     * Configures the security filter chain.
+     *
+     * @param httpSecurity the HttpSecurity object
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
         // h2-console is a servlet
         // https://github.com/spring-projects/spring-security/issues/12310
         return httpSecurity
@@ -68,6 +77,12 @@ public class JwtSecurityConfig {
                 .build();
     }
 
+    /**
+     * Configures the authentication manager.
+     *
+     * @param userDetailsService the UserDetailsService object
+     * @return the configured AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
         var authenticationProvider = new DaoAuthenticationProvider();
@@ -75,6 +90,11 @@ public class JwtSecurityConfig {
         return new ProviderManager(authenticationProvider);
     }
 
+    /**
+     * Provides the UserDetailsService.
+     *
+     * @return the UserDetailsService object
+     */
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withUsername("sudip")
@@ -86,17 +106,34 @@ public class JwtSecurityConfig {
         return new InMemoryUserDetailsManager(user);
     }
 
+    /**
+     * Provides the JWKSource.
+     *
+     * @return the JWKSource object
+     */
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
         JWKSet jwkSet = new JWKSet(rsaKey());
         return (((jwkSelector, securityContext) -> jwkSelector.select(jwkSet)));
     }
 
+    /**
+     * Provides the JwtEncoder.
+     *
+     * @param jwkSource the JWKSource object
+     * @return the JwtEncoder object
+     */
     @Bean
     JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource) {
         return new NimbusJwtEncoder(jwkSource);
     }
 
+    /**
+     * Provides the JwtDecoder.
+     *
+     * @return the JwtDecoder object
+     * @throws JOSEException if an error occurs during JWT decoding
+     */
     @Bean
     JwtDecoder jwtDecoder() throws JOSEException {
         return NimbusJwtDecoder
@@ -104,6 +141,11 @@ public class JwtSecurityConfig {
                 .build();
     }
 
+    /**
+     * Generates the RSA key.
+     *
+     * @return the RSAKey object
+     */
     @Bean
     public RSAKey rsaKey() {
         KeyPair keyPair = keyPair();
@@ -114,6 +156,11 @@ public class JwtSecurityConfig {
                 .build();
     }
 
+    /**
+     * Generates the RSA key pair.
+     *
+     * @return the KeyPair object
+     */
     @Bean
     public KeyPair keyPair() {
         try {

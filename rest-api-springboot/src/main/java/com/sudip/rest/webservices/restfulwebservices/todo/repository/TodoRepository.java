@@ -5,7 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface TodoRepository extends JpaRepository<Todo,Integer> {
+/**
+ * Repository interface for managing Todo entities.
+ */
+public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
+    /**
+     * Retrieve todos by username.
+     *
+     * @param username The username to filter todos.
+     * @return List of todos belonging to the specified username.
+     */
     List<Todo> findByUsername(String username);
 }
