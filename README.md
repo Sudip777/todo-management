@@ -25,21 +25,6 @@ This Todo management application combines the power of React for the frontend an
 ## Project Structure
 
 ### React Frontend
-
-The React frontend of the application is organized as follows:
-
-todo-project/
-├── backend/ (Spring Boot)
-│   ├── pom.xml
-│   ├── src/main/java/com/sudip/rest/webservices/restfulwebservices/todo/... (TodoService, TodoController, TodoRepository)
-│   └── ... (other Spring Boot configurations)
-├── frontend/ (React)
-│   ├── package.json
-│   ├── src/ (React components, routes, services)
-│   └── ... (other React build files)
-└── README.md
-
-
 #### Dependencies:
 
 - React
@@ -144,26 +129,26 @@ To prepare for production:
 
 ## API Documentation
 
+
+
 ### Retrieve Todos
+
 
 **Endpoint:**
 GET /users/{username}/todos
 
 **Description:**
-
 Retrieve all Todo items for a specific user.
 
 **Parameters:**
-
 - `username` (path): The username of the user whose Todo items are to be retrieved.
-
+  
 **Example Request:**
-
 ```bash
 curl -X GET http://localhost:8080/users/johndoe/todos
 
 Example Response:
-
+```json
 [
   {
     "id": 1,
@@ -178,98 +163,111 @@ Example Response:
     "done": true
   }
 ]
+```
 
-Retrieve a Todo
-Endpoint:
+### Retrieve a Todo
+
+
+**Endpoint:**
 GET /users/{username}/todos/{id}
 
-Description:
-
+**Description:**
 Retrieve a specific Todo item for a user.
 
-Parameters:
-
-username (path): The username of the user.
-id (path): The ID of the Todo item to retrieve.
-Example Request:
+**Parameters:**
+- `username` (path): The username of the user.
+- `id` (path): The ID of the Todo item to retrieve.
+- 
+**Example Request:**
 curl -X GET http://localhost:8080/users/johndoe/todos/1
 
-Example Response:
+**Example Response:**
+```json
 {
   "id": 1,
   "username": "johndoe",
   "description": "Complete task 1",
   "done": false
 }
-Delete a Todo
-Endpoint:
+```
+
+### Delete a Todo
+
+
+**Endpoint:**
 DELETE /users/{username}/todos/{id}
 
-Description:
-
+**Description:**
 Delete a specific Todo item for a user.
 
-Parameters:
-
-username (path): The username of the user.
-id (path): The ID of the Todo item to delete.
-Example Request:
+**Parameters:**
+- `username` (path): The username of the user.
+- `path` (path): The ID of the Todo item to delete.
+- 
+**Example Request:**
 curl -X DELETE http://localhost:8080/users/johndoe/todos/1
 
-Example Response:
+**Example Response:**
 {} // Empty response with 204 No Content status
 
-Update a Todo
-Endpoint:
+### Update a Todo
+
+
+**Endpoint:**
 PUT /users/{username}/todos/{id}
 
-Description:
-
+**Description:**
 Update a specific Todo item for a user.
 
-Parameters:
+**Parameters:**
+- `username` (path): The username of the user.
+- `id` (path): The ID of the Todo item to update.
+- `todo`(body): Updated Todo item in the request body.
+- 
+**Example Request:**
+  
+curl -X PUT -H "Content-Type: application/json" -d '{"id": 1, "username": "johndoe", "description": "Updated task", "done": true}' 
+http://localhost:8080/users/johndoe/todos/1
 
-username (path): The username of the user.
-id (path): The ID of the Todo item to update.
-todo (body): Updated Todo item in the request body.
-Example Request:
-
-curl -X PUT -H "Content-Type: application/json" -d '{"id": 1, "username": "johndoe", "description": "Updated task", "done": true}' http://localhost:8080/users/johndoe/todos/1
-
-Example Response:
-
+**Example Response:**
+```json
 {
   "id": 1,
   "username": "johndoe",
   "description": "Updated task",
   "done": true
 }
+```
 
-Create a Todo
-Endpoint:
+### Create a Todo
+
+
+**Endpoint:**
 POST /users/{username}/todos
 
-Description:
-
+**Description:**
 Create a new Todo item for a user.
 
-Parameters:
+**Parameters:**
+- `username` (path): The username of the user.
+- `todo` (body): Todo item to create in the request body.
+- 
+**Example Request:**
+  
+curl -X POST -H "Content-Type: application/json" -d '{"username": "johndoe", "description": "New task", "done": false}' 
+http://localhost:8080/users/johndoe/todos
 
-username (path): The username of the user.
-todo (body): Todo item to create in the request body.
-Example Request:
-curl -X POST -H "Content-Type: application/json" -d '{"username": "johndoe", "description": "New task", "done": false}' http://localhost:8080/users/johndoe/todos
-
-Example Response:
+**Example Response:**
+```json
 {
   "id": 3,
   "username": "johndoe",
   "description": "New task",
   "done": false
 }
+```
 
 
-Feel free to customize the examples and descriptions based on your specific project details.
 
 
 
