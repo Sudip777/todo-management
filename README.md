@@ -128,8 +128,7 @@ To prepare for production:
 ---
 
 ## API Documentation
-
-
+---
 
 ### Retrieve Todos
 
@@ -146,10 +145,10 @@ Retrieve all Todo items for a specific user.
 **Example Request:**
 ```bash
 curl -X GET http://localhost:8080/users/johndoe/todos
+```
 
-Example Response:
+**Example Response:**
 ```json
-[
   {
     "id": 1,
     "username": "johndoe",
@@ -162,11 +161,10 @@ Example Response:
     "description": "Read a book",
     "done": true
   }
-]
 ```
+---
 
 ### Retrieve a Todo
-
 
 **Endpoint:**
 GET /users/{username}/todos/{id}
@@ -177,7 +175,7 @@ Retrieve a specific Todo item for a user.
 **Parameters:**
 - `username` (path): The username of the user.
 - `id` (path): The ID of the Todo item to retrieve.
-- 
+  
 **Example Request:**
 curl -X GET http://localhost:8080/users/johndoe/todos/1
 
@@ -190,7 +188,7 @@ curl -X GET http://localhost:8080/users/johndoe/todos/1
   "done": false
 }
 ```
-
+---
 ### Delete a Todo
 
 
@@ -203,13 +201,13 @@ Delete a specific Todo item for a user.
 **Parameters:**
 - `username` (path): The username of the user.
 - `path` (path): The ID of the Todo item to delete.
-- 
 **Example Request:**
 curl -X DELETE http://localhost:8080/users/johndoe/todos/1
 
 **Example Response:**
 {} // Empty response with 204 No Content status
 
+---
 ### Update a Todo
 
 
@@ -223,7 +221,7 @@ Update a specific Todo item for a user.
 - `username` (path): The username of the user.
 - `id` (path): The ID of the Todo item to update.
 - `todo`(body): Updated Todo item in the request body.
-- 
+  
 **Example Request:**
   
 curl -X PUT -H "Content-Type: application/json" -d '{"id": 1, "username": "johndoe", "description": "Updated task", "done": true}' 
@@ -238,7 +236,7 @@ http://localhost:8080/users/johndoe/todos/1
   "done": true
 }
 ```
-
+---
 ### Create a Todo
 
 
@@ -251,7 +249,7 @@ Create a new Todo item for a user.
 **Parameters:**
 - `username` (path): The username of the user.
 - `todo` (body): Todo item to create in the request body.
-- 
+
 **Example Request:**
   
 curl -X POST -H "Content-Type: application/json" -d '{"username": "johndoe", "description": "New task", "done": false}' 
@@ -266,7 +264,7 @@ http://localhost:8080/users/johndoe/todos
   "done": false
 }
 ```
-
+---
 
 
 
